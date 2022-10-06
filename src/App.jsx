@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { Home, PageNotFound, ContextExample } from './pages';
+import { Home, PageNotFound } from './pages';
 import './index.css'; // Special syntax for React. This applies the CSS here and all child components
 
 
@@ -29,11 +29,14 @@ export const App = () => {
             <Routes>
                 {/* Each route will "route" us to another "page" */}
                 <Route path="/" element={<Home />} />
-                <Route path="/context" element={<ContextExample />} />
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
             {/* Insert some footer */}
-            <footer>Footer!</footer>
+            <footer><div class="container has-text-centered">
+       <p>Made by Noah Ortega. (SkillStorm 2022)</p> 
+    </div></footer>
         </BrowserRouter>
     );
 }
+
+// export default App
