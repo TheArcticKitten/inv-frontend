@@ -7,41 +7,37 @@ import axios from "axios";
 // If it's dynamic data such as seasonal dropdowns, read the options from an API
 const entityTypes = [
     <option>Please select a type</option>,
-    <option>Fire</option>,
-    <option>Water</option>,
-    <option>Grass</option>,
-    <option>Flying</option>,
-    <option>Ice</option>,
-    <option>Electric</option>,
-    <option>Rock</option>,
-    <option>Ground</option>,
-    <option>Normal</option>,
-    <option>Poison</option>,
-    <option>Steel</option>,
+    <option>Consoles and Hardware</option>,
+    <option>Video Game</option>,
+    <option>Accessory</option>,
+    <option>PC</option>,
+    <option>Electronics</option>,
+    <option>Toys</option>,
+    <option>Clothing</option>,
 ];
 
-export const entityForm = ({setentityList}) => {
+export const EntityForm = ({setEntityList}) => {
 
     // You may have the state be an object or break it out into separate states
     // Personally, I would advocate using react-hook-form and yup
     const [entityData, setEntityData] = useState({
+        entityId: '',
+        warehouseId: null,
         entityName: '',
-        pokedexNumber: null,
-        pokedexDescription: '',
-        type1: null,
-        type2: null,
-        isLegendary: false,
+        entityDesc: '',
+        entitySize: null,
+        entityCount: null,
         imageUrl: null
     });
 
     const handleClear = () => {
-        setentityData({
+        setEntityData({
+            entityId: '',
+            warehouseId: null,
             entityName: '',
-            pokedexNumber: null,
-            pokedexDescription: '',
-            type1: null,
-            type2: null,
-            isLegendary: false,
+            entityDesc: '',
+            entitySize: null,
+            entityCount: null,
             imageUrl: null
         });
     }
@@ -54,20 +50,17 @@ export const entityForm = ({setentityList}) => {
      * The event object will reference where it came from
      */
     const handleSubmit = async (event) => {
-        // event.preventDefault() will prevent the page refresh
         event.preventDefault();
         try {
-            const res = await axios.post('http://localhost:9000/entity', {
+            const res = await axios.post('http://localhost:8080/entity', {
                 name: entityData.entityName,
-                pokedex: {
-                    number: entityData.pokedexNumber,
-                    description: entityData.pokedexDescription
-                },
-                // Write some validation logic to ensure empty values don't get added to the array
-                // The validation on the backend already exists, so no problems there
-                types: [entityData.type1, entityData.type2],
-                isLegendary: entityData.isLegendary,
-                imageUrl: entityData.imageUrl
+                entityId: '',
+                warehouseId: null,
+                entityName: '',
+                entityDesc: '',
+                entitySize: null,
+                entityCount: null,
+                imageUrl: null
             });
             console.log('NEW entity!!')
             console.log(res.data);
@@ -75,7 +68,7 @@ export const entityForm = ({setentityList}) => {
             // use the setentityList to manually add the entity to it
             // 1. Do this approach of manually adding "optimistic update"
             // 2. Refetch the data
-            setentityList(entityList => [...entityList, res.data]);
+            setEntityList(entityList => [...entityList, res.data]);
 
             event.target.reset();
             handleClear();
@@ -88,60 +81,42 @@ export const entityForm = ({setentityList}) => {
         <form onSubmit={handleSubmit} className="entity-form">
             <div>
                 <div>
-                <label htmlFor="entity-name">entity Name: </label>
+                <label htmlFor="entity-name">Entity Name: </label>
                 <input 
                     id="entity-name"
                     value={entityData.entityName}
                     // Spread the contents of the old object into a new one, then update the name to be
                     // the input's value using the event object
-                    onChange={e => setentityData({...entityData, entityName: e.target.value})} 
-                    placeholder="ex. Charmander" 
+                    onChange={e => setEntityData({...entityData, entityName: e.target.value})} 
+                    placeholder="ex. Nintendo Switch" 
                 />
                 </div>
             </div>
             <div>
                 <div>
-                <label htmlFor="pokedex-number">Pokedex Number: </label>
+                <label htmlFor="entity-number">Entity Number: </label>
                 <input 
-                    id="pokedex-number"
+                    id="entity-number"
                     type="number"
-                    value={entityData.pokedexNumber}
-                    onChange={e => setentityData({...entityData, pokedexNumber: e.target.value})}
-                    placeholder="Pokedex Number"
+                    value={entityData.entityNumber}
+                    onChange={e => setEntityData({...entityData, entityNumber: e.target.value})}
+                    placeholder="Entity Number"
                 />
                 </div>
                 <div>
-                <label htmlFor="pokedex-description">Description: </label>
+                <label htmlFor="entity-description">Description: </label>
                 <input 
-                    id="pokedex-description"
-                    value={entityData.pokedexDescription}
-                    onChange={e => setentityData({...entityData, pokedexDescription: e.target.value})}
-                    placeholder="Pokedex Description"
+                    id="entity-description"
+                    value={entityData.entityDescription}
+                    onChange={e => setEntityData({...entityData, entityDescription: e.target.value})}
+                    placeholder="Entity Description"
                 />
                 </div>
             </div>
             <div>
-                <div>
-                    <label htmlFor="type-1">Type 1: </label>
-                    <select id="type-1" onChange={e => setentityData({...entityData, type1: e.target.value})}>
-                        {entityTypes}
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor="type-2">Type 2: </label>
-                    <select id="type-2" onChange={e => setentityData({...entityData, type2: e.target.value})}>
-                        {entityTypes}
-                    </select>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <label htmlFor="is-legendary">Is it a Legendary? </label>
-                    <input id="is-legendary" type="checkbox" onChange={() => setentityData({...entityData, isLegendary: !entityData.isLegendary})} />
-                </div>
                 <div>
                     <label htmlFor="image-url">Image URL: </label>
-                    <input id="image-url" value={entityData.imageUrl} onChange={e => setentityData({...entityData, imageUrl: e.target.value})}/>
+                    <input id="image-url" value={entityData.imageUrl} onChange={e => setEntityData({...entityData, imageUrl: e.target.value})}/>
                 </div>
             </div>
             {/* A button's default behavior if inside a form is to submit it */}

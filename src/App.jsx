@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, PageNotFound } from './pages';
+import { CreateEntity } from './pages/CreateEntity';
+import { AppNav } from './components/Nav' 
 import './index.css'; // Special syntax for React. This applies the CSS here and all child components
 
 
@@ -26,9 +28,11 @@ export const App = () => {
             {/* I place the navbar here because I want it present on every page */}
             {/* Navigating between pages will carry this navbar with us */}
             {/* everything in here will be managed by the BrowserRouter */}
+            <AppNav />
             <Routes>
                 {/* Each route will "route" us to another "page" */}
                 <Route path="/" element={<Home />} />
+                <Route path="/CreateEntity" element={<CreateEntity />} />
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
             {/* Insert some footer */}
