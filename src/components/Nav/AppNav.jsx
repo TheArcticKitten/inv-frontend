@@ -16,13 +16,14 @@ export const AppNav = () => {
                 <NavItem>
                     <Link to="/about" className="nav-link">About</Link>
                 </NavItem>
-                <NavItem>
-                    <Link to="/contact" className="nav-link">Contact Us</Link>
-                </NavItem>
+
             </NavSection>
             <NavSection className="reverse-nav-section"> {/* </Nav>style={{color: 'blue'}}> */}
                 <NavItem>
                     <Link to="/CreateEntity" className="nav-link">Entity Form</Link>
+                </NavItem>
+                <NavItem>
+                    <Link to="/WarehouseView" className="nav-link">Warehouse View</Link>
                 </NavItem>
             </NavSection>
         </Nav>
