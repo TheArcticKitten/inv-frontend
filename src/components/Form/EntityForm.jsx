@@ -52,11 +52,10 @@ export const EntityForm = ({setEntityList}) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const res = await axios.post('http://localhost:8080/entity', {
-                name: entityData.entityName,
+            const res = await axios.post('http://localhost:8080/entity', { 
                 entityId: '',
                 warehouseId: null,
-                entityName: '',
+                entityName: entityData.entityName,
                 entityDesc: '',
                 entitySize: null,
                 entityCount: null,
@@ -94,13 +93,13 @@ export const EntityForm = ({setEntityList}) => {
             </div>
             <div>
                 <div>
-                <label htmlFor="entity-number">Entity Number: </label>
+                <label htmlFor="entity-id">Entity ID Number: </label>
                 <input 
-                    id="entity-number"
+                    id="entity-id"
                     type="number"
-                    value={entityData.entityNumber}
-                    onChange={e => setEntityData({...entityData, entityNumber: e.target.value})}
-                    placeholder="Entity Number"
+                    value={entityData.entityId}
+                    onChange={e => setEntityData({...entityData, entityId: e.target.value})}
+                    placeholder="Entity ID Number"
                 />
                 </div>
                 <div>
@@ -110,6 +109,24 @@ export const EntityForm = ({setEntityList}) => {
                     value={entityData.entityDescription}
                     onChange={e => setEntityData({...entityData, entityDescription: e.target.value})}
                     placeholder="Entity Description"
+                />
+                </div>
+                <div>
+                <label htmlFor="entity-size">Entity Size: </label>
+                <input 
+                    id="entity-size"
+                    value={entityData.entitySize}
+                    onChange={e => setEntityData({...entityData, entitySize: e.target.value})}
+                    placeholder="Entity Size (per unit)"
+                />
+                </div>
+                <div>
+                <label htmlFor="entity-size">Unit Count: </label>
+                <input 
+                    id="entity-count"
+                    value={entityData.entityCount}
+                    onChange={e => setEntityData({...entityData, entityCount: e.target.value})}
+                    placeholder="Unit Count"
                 />
                 </div>
             </div>

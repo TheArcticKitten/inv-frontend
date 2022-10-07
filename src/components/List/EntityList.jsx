@@ -20,7 +20,7 @@ import { EntityForm } from '../Form/EntityForm';
      *      from the list OR refetch data 
      */
 
-const Entity = ({Entity: {name, pokedex, types, imageUrl}}) => {
+const Entity = ({Entity: {entityName, entityId, warehouseId, entityCount, imageUrl}}) => {
 
     // const [isEdit, toggleIsEdit] = useState(false);
 
@@ -30,11 +30,11 @@ const Entity = ({Entity: {name, pokedex, types, imageUrl}}) => {
     // }
     return (
         <tr>
-            <td className="row-item">{name}</td>
-            <td className="row-item">{pokedex?.number}</td>
-            <td className="row-item">{types[0]}</td>
-            <td className="row-item">{types[1]}</td>
-            <td className="row-item"><img height="100" src={imageUrl} alt={name}/></td>
+            <td className="row-item">{entityName}</td>
+            <td className="row-item">{entityId?.number}</td>
+            <td className="row-item">{warehouseId}</td>
+            <td className="row-item">{entityCount}</td>
+            <td className="row-item"><img height="100" src={imageUrl} alt={entityName}/></td>
         </tr>
     );
 }
@@ -51,7 +51,7 @@ export const EntityList = () => {
         // and a rejected promise when >= to 400 
         
         // Move this to store. Get the res.data and use dispatch(setEntityList(res.data))
-        axios.get('http://localhost:9000/Entity')
+        axios.get('http://localhost:8080/Entity')
             .then(res => { setEntityList(res.data); console.log(res.data) })
             .catch(err => console.error(err)); // This could easily be to render an error display
     }, []);
@@ -63,9 +63,9 @@ export const EntityList = () => {
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Pokedex Number</th>
-                        <th>Type 1</th>
-                        <th>Type 2</th>
+                        <th>Entity ID</th>
+                        <th>Warehouse ID</th>
+                        <th>Unit Count</th>
                         <th>Image</th>
                     </tr>
                 </thead>
