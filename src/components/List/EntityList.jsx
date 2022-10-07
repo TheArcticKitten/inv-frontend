@@ -20,7 +20,7 @@ import { EntityForm } from '../Form/EntityForm';
      *      from the list OR refetch data 
      */
 
-const Entity = ({Entity: {_id, entityId, warehouseId, entityName, entityDesc, entitySize, imageUrl, __v, entityCount}}) => {
+const Entity = ({Entity: { entityCount, entityDesc, entityId,  entityName,  entitySize, imageUrl, warehouseId,  __v, _id}}) => {
     return (
         <tr>
             <td className="row-item">{entityName}</td>
@@ -45,12 +45,12 @@ export const EntityList = () => {
         // and a rejected promise when >= to 400 
         
         // Move this to store. Get the res.data and use dispatch(setEntityList(res.data))
-        axios.get('http://localhost:8080/Entity')
+        axios.get('http://localhost:8080/entity')
             .then(res => { setEntityList(res.data); console.log(res.data) })
             .catch(err => console.error(err)); // This could easily be to render an error display
     }, []);
 
-    console.log(Entity)
+   
     return (
         <>
             <EntityForm setEntityList={setEntityList}/>

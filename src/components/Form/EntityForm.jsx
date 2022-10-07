@@ -21,52 +21,48 @@ export const EntityForm = ({setEntityList}) => {
     // You may have the state be an object or break it out into separate states
     // Personally, I would advocate using react-hook-form and yup
     const [entityData, setEntityData] = useState({
-        entityId: '',
-        warehouseId: null,
-        entityName: '',
-        entityDesc: '',
-        entitySize: null,
         entityCount: null,
-        imageUrl: null
+        entityDesc: '',
+        entityId: '',
+        entityName: '',
+        entitySize: null,
+        imageUrl: null,
+        warehouseId: null,
+        __v: null,
+        _id: null,
     });
 
     const handleClear = () => {
         setEntityData({
-            entityId: '',
-            warehouseId: null,
-            entityName: '',
-            entityDesc: '',
-            entitySize: null,
             entityCount: null,
-            imageUrl: null
+            entityDesc: '',
+            entityId: '',
+            entityName: '',
+            entitySize: null,
+            imageUrl: null,
+            warehouseId: null,
+            __v: null,
+            _id: null,
         });
     }
 
-    /**
-     * Page refresh is the default behavior for a form submit,
-     * since we're an SPA (Single Page Application), we do NOT want the page to refresh
-     * 
-     * The DOM calls our function handler with the first parameter being the event object itself
-     * The event object will reference where it came from
-     */
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const res = await axios.post('http://localhost:8080/entity', { 
-                entityId: '',
-                warehouseId: null,
-                entityName: entityData.entityName,
+                entityCount: null,    
                 entityDesc: '',
+                entityId: '',
+                entityName: entityData.entityName,
                 entitySize: null,
-                entityCount: null,
-                imageUrl: null
+                imageUrl: null,
+                warehouseId: null,
+                __v: null,
+                _id: null,
             });
             console.log('NEW entity!!')
             console.log(res.data);
 
-            // use the setentityList to manually add the entity to it
-            // 1. Do this approach of manually adding "optimistic update"
-            // 2. Refetch the data
             setEntityList(entityList => [...entityList, res.data]);
 
             event.target.reset();
@@ -103,11 +99,11 @@ export const EntityForm = ({setEntityList}) => {
                 />
                 </div>
                 <div>
-                <label htmlFor="entity-description">Description: </label>
+                <label htmlFor="entity-desc">Description: </label>
                 <input 
                     id="entity-description"
-                    value={entityData.entityDescription}
-                    onChange={e => setEntityData({...entityData, entityDescription: e.target.value})}
+                    value={entityData.entityDesc}
+                    onChange={e => setEntityData({...entityData, entityDesc: e.target.value})}
                     placeholder="Entity Description"
                 />
                 </div>

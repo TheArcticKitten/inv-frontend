@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Home, PageNotFound } from './pages';
 import { CreateEntity } from './pages/CreateEntity';
-import { WarehouseList, WarehouseView } from './pages/WarehouseView';
+import { WarehouseView } from './pages/WarehouseView';
 import { AppNav } from './components/Nav' 
 import './index.css'; // Special syntax for React. This applies the CSS here and all child components
 
